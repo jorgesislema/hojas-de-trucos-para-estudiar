@@ -1,137 +1,47 @@
-# 🚀 **Docker: Comandos y Recomendaciones**
+# 🛠️ **Guía Docker Compose**
 
-Esta es una guía completa para trabajar con Docker, incluyendo comandos esenciales, opciones avanzadas y recomendaciones para mejorar tu flujo de trabajo. Este documento está diseñado para ser una referencia rápida y práctica, tanto para principiantes como para usuarios avanzados.
-
----
-
-## 🐳 **¿Qué es Docker?**
-
-Docker es una plataforma que permite crear, desplegar y ejecutar aplicaciones dentro de contenedores. Un contenedor es una instancia ligera y aislada que incluye todo lo necesario para que una aplicación se ejecute de manera consistente en cualquier entorno.
-
-**Beneficios clave de Docker:**
-
-- Portabilidad: Ejecuta aplicaciones en cualquier sistema operativo que soporte Docker.
-- Escalabilidad: Despliega múltiples instancias de tu aplicación fácilmente.
-- Gestión simplificada: Automatiza despliegues con herramientas como Docker Compose.
+Docker Compose es una herramienta que permite definir y gestionar aplicaciones multi-contenedor mediante un archivo de configuración YAML. Simplifica la configuración, despliegue y administración de aplicaciones complejas en distintos entornos como desarrollo, pruebas y producción.
 
 ---
 
 ## 📑 **Índice**
 
-1. [🔍 Información y Ayuda sobre Docker](#-información-y-ayuda-sobre-docker)
-2. [🖼️ Gestión de Imágenes](#️-gestión-de-imágenes)
-3. [📦 Gestión de Contenedores](#-gestión-de-contenedores)
-4. [🔧 Trabajando con Contenedores](#-trabajando-con-contenedores)
-5. [📋 Visualización de Logs](#-visualización-de-logs)
-6. [⚙️ Gestión General de Docker](#-gestión-general-de-docker)
-7. [💡 Recomendaciones Adicionales](#-recomendaciones-adicionales)
-8. [🛠️ Guía Docker Compose](#️-guía-docker-compose)
+1. [❓ ¿Qué es Docker Compose?](#-qué-es-docker-compose)
+2. [📥 Instalación](#-instalación)
+3. [🔢 Sintaxis básica del archivo `docker-compose.yml`](#-sintaxis-básica-del-archivo-docker-composeyml)
+4. [🔧 Comandos comunes de Docker Compose](#-comandos-comunes-de-docker-compose)
+5. [🖋️ Ejemplo práctico](#-ejemplo-práctico)
+6. [💡 Recomendaciones y Mejores Prácticas](#-recomendaciones-y-mejores-prácticas)
+7. [📚 Recursos y Referencias](#-recursos-y-referencias)
 
 ---
 
-## 🔍 **Información y Ayuda sobre Docker**
+## 💡 **¿Qué es Docker Compose?**
 
-- `docker version`: Muestra la versión del cliente y servidor de Docker.
-- `docker info`: Muestra información detallada sobre el sistema Docker.
-- `docker help`: Muestra ayuda sobre los comandos de Docker.
-
-> **💡 Recomendación:** Utiliza `docker help <comando>` para obtener detalles específicos de cualquier comando.
+Docker Compose permite definir una aplicación compuesta por múltiples servicios (contenedores), especificando las configuraciones necesarias como redes, volúmenes y variables de entorno en un único archivo YAML. Con solo un comando puedes iniciar o detener toda la aplicación.
 
 ---
 
-## 🖼️ **Gestión de Imágenes**
+## 📥 **Instalación**
 
-- `docker search <imagen>`: Busca imágenes en Docker Hub.
-- `docker images`: Lista las imágenes almacenadas localmente.
-- `docker pull <imagen>`: Descarga una imagen desde un registro.
-- `docker rmi <imagen>`: Elimina una imagen del almacenamiento local.
-- `docker build -t <imagen> <ruta>`: Construye una imagen desde un Dockerfile.
-- `docker push <imagen>`: Sube una imagen a un registro.
-- `docker login`: Autentica en un registro de contenedores.
-- `docker logout`: Cierra sesión de un registro de contenedores.
-- `docker history <imagen>`: Muestra el historial de capas de una imagen.
-
-> **🔧 Consejo:** Mantén tus imágenes organizadas con etiquetas (`tags`) para facilitar el seguimiento de versiones.
-
----
-
-## 📦 **Gestión de Contenedores**
-
-- `docker ps`: Lista los contenedores en ejecución.
-- `docker ps -a`: Lista todos los contenedores, incluidos los detenidos.
-- `docker ps -f <filtro>`: Filtra la lista de contenedores.
-- `docker ps -s`: Muestra el tamaño de los contenedores.
-- `docker run <imagen>`: Ejecuta un contenedor desde una imagen.
-- `docker run -it <imagen>`: Ejecuta un contenedor con acceso interactivo.
-- `docker run -d <imagen>`: Ejecuta un contenedor en modo desatendido.
-- `docker start <id_contenedor>`: Inicia un contenedor detenido.
-- `docker stop <id_contenedor>`: Detiene un contenedor de manera controlada.
-- `docker restart <id_contenedor>`: Reinicia un contenedor.
-- `docker rm <id_contenedor>`: Elimina un contenedor.
-- `docker exec -it <id_contenedor> <shell>`: Ejecuta un comando dentro de un contenedor en ejecución.
-- `docker kill <id_contenedor>`: Detiene un contenedor de forma forzada.
-- `docker create <imagen>`: Crea un contenedor sin ejecutarlo.
-- `docker pause <id_contenedor>`: Pausa los procesos dentro de un contenedor.
-
-> **💡 Recomendación:** Utiliza volúmenes (`docker volume`) para mantener datos persistentes entre reinicios de contenedores.
-
----
-
-## 🔧 **Trabajando con Contenedores**
-
-- `docker attach <id_contenedor>`: Conecta la salida de un contenedor en ejecución.
-- `docker commit <id_contenedor> <imagen>`: Crea una nueva imagen desde un contenedor.
-- `docker diff <id_contenedor>`: Muestra los cambios en el sistema de archivos de un contenedor.
-- `docker events`: Muestra eventos de Docker en tiempo real.
-- `docker load <archivo>`: Carga una imagen desde un archivo tar.
-- `docker tag <imagen> <etiqueta>`: Crea una etiqueta para una imagen.
-- `docker top <id_contenedor>`: Muestra los procesos en ejecución dentro de un contenedor.
-- `docker wait <id_contenedor>`: Bloquea hasta que un contenedor se detenga y muestra el código de salida.
-
-> **🔍 Consejo:** Utiliza `docker logs` para depurar aplicaciones dentro de los contenedores.
-
----
-
-## 📋 **Visualización de Logs**
-
-- `docker logs <id_contenedor>`: Muestra los logs de un contenedor.
-- `docker logs --details <id_contenedor>`: Muestra información detallada de los logs.
-- `docker logs -f <id_contenedor>`: Muestra logs en tiempo real.
-- `docker logs --until <hora> <id_contenedor>`: Muestra los logs hasta un momento específico.
-- `docker logs --tail <n> <id_contenedor>`: Muestra las últimas `n` líneas de los logs.
-
-> **📢 Recomendación:** Configura el almacenamiento de logs para evitar que se acumulen en exceso y consuman espacio en disco.
-
----
-
-## ⚙️ **Gestión General de Docker**
-
-- `docker manifest`: Gestiona los manifiestos de imágenes Docker.
-- `docker network`: Gestiona las redes de Docker.
-- `docker plugin`: Gestiona plugins de Docker.
-- `docker volume`: Gestiona los volúmenes de almacenamiento.
-- `docker system`: Gestiona datos y recursos del sistema Docker.
-- `docker trust`: Gestiona la confianza de contenido para imágenes.
-- `docker context`: Gestiona los contextos de Docker.
-- `docker builder`: Gestiona el proceso de construcción.
-- `docker container`: Gestiona contenedores.
-
-> **🛑 Consejo:** Utiliza `docker system prune` para limpiar recursos no utilizados y liberar espacio.
-
----
-
-## 🛠️ **Guía Docker Compose**
-
-Docker Compose es una herramienta que permite definir y administrar aplicaciones multi-contenedor utilizando un archivo YAML. Esto simplifica la configuración y despliegue de entornos complejos.
-
-### 📥 **Instalación**
-Si no tienes Docker Compose instalado, puedes obtenerlo ejecutando:
+Para instalar Docker Compose en sistemas basados en Debian/Ubuntu:
 
 ```bash
 sudo apt install docker-compose
 ```
 
-### 📄 **Sintaxis básica del archivo `docker-compose.yml`**
+Verifica la instalación con:
+
+```bash
+docker-compose version
+```
+
+---
+
+## 🔢 **Sintaxis básica del archivo `docker-compose.yml`**
+
+El archivo `docker-compose.yml` define la estructura de los servicios de una aplicación. Aquí tienes un ejemplo básico:
+
 ```yaml
 version: '3.9'
 services:
@@ -147,7 +57,7 @@ services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: ejemplo
+      MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: app_db
     volumes:
       - db_data:/var/lib/mysql
@@ -161,18 +71,23 @@ networks:
   webnet:
 ```
 
-### 🛠️ **Comandos comunes de Docker Compose**
+---
 
-- `docker-compose up`: Inicia todos los servicios definidos en el archivo.
-- `docker-compose down`: Detiene y elimina los contenedores, redes y volúmenes.
-- `docker-compose logs`: Muestra los logs de los servicios.
-- `docker-compose exec <servicio> <comando>`: Ejecuta un comando en un contenedor en ejecución.
-- `docker-compose build`: Construye o reconstruye las imágenes.
+## 🔧 **Comandos comunes de Docker Compose**
 
-> **📋 Recomendación:** Organiza tus servicios en diferentes archivos YAML si trabajas con múltiples entornos (desarrollo, pruebas, producción).
+| Comando                          | Descripción                                |
+|----------------------------------|--------------------------------------------|
+| `docker-compose up`              | Inicia todos los servicios definidos en `docker-compose.yml`. |
+| `docker-compose down`            | Detiene y elimina los servicios, redes y volúmenes. |
+| `docker-compose logs`            | Muestra los registros de los servicios.     |
+| `docker-compose exec <servicio> <comando>` | Ejecuta un comando dentro de un servicio. |
+| `docker-compose build`           | Construye o reconstruye las imágenes de los servicios. |
 
-### 📝 **Ejemplo práctico**
-Si tienes una aplicación web con un backend Node.js y una base de datos PostgreSQL, tu `docker-compose.yml` podría ser algo como esto:
+---
+
+## 🖋️ **Ejemplo práctico**
+
+Si tienes una aplicación web con un backend en Node.js y una base de datos PostgreSQL, tu archivo `docker-compose.yml` podría ser:
 
 ```yaml
 version: '3.9'
@@ -194,32 +109,37 @@ services:
       POSTGRES_DB: app_db
 ```
 
-Con esta configuración, puedes iniciar la aplicación ejecutando:
+Para iniciar la aplicación, ejecuta:
 
 ```bash
 docker-compose up
 ```
 
-### Mejores Prácticas
+---
 
-    Minimiza el tamaño de las imágenes: Utilizar imágenes base pequeñas como alpiney eliminaciones.
+## 💡 **Recomendaciones y Mejores Prácticas**
 
-    Utilizamos volúmenes para persistentes datos: Evita almacenar datos críticas críticas dentro de contenedor.
+1. **Optimiza el tamaño de las imágenes:** Usa imágenes base pequeñas como `alpine`.
+2. **Usa volúmenes:** Almacena datos persistentes fuera de los contenedores para evitar pérdidas de datos.
+3. **Limita los recursos:** Define límites de uso de CPU y memoria con `deploy.resources.limits`.
+4. **Separa configuraciones:** Crea múltiples archivos YAML para distintos entornos (desarrollo, pruebas, producción).
+5. **Documenta tu configuración:** Añade comentarios explicativos en el archivo YAML.
 
-    Limita los recursos: Usa --memoryY --cpuspara el uso limitado de recursos de los contenedores.
+---
 
-    Mantén las imágenes actualizadas: Actualiza regularmente las imágenes base y las dependencias para evitar vulnerabilidades.
+## 📚 **Recursos y Referencias**
 
-    Utiliza Docker Compose para entornos complejos: Simplificar la gestión de múltiples contenedores y servicios.
+- [Documentación oficial de Docker Compose](https://docs.docker.com/compose/)
+- [Docker Hub](https://hub.docker.com/)
+- [Guía de mejores prácticas para Docker](https://docs.docker.com/develop/dev-best-practices/)
 
-### Referencias y Recursos
+---
 
--    Documentación oficial de Docker
+¡Felicidades! Ahora tienes una guía completa sobre Docker Compose. Utiliza esta referencia para gestionar tus aplicaciones de manera eficiente.
 
--    Docker Hub
+**Docker es poder, y ahora ese poder está en tus manos.**
 
--   Docker Compose Documentación
+---
 
--   Mejores prácticas para escribir Dockerfiles
 
-Este documento es una guía viva y se actualiza regularmente con nuevas recomendaciones y comandos. Si tienes sugerencias o mejoras, "no dudes en contribuir".
+
